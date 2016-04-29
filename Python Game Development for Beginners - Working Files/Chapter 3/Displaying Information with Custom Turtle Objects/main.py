@@ -7,6 +7,10 @@ class Counter(turtle.Turtle):
     turtle.Turtle.__init__(self)
     self.count = 0
     self.hideturtle()
+    self.penup()
+    self.speed(0)
+    self.goto(coordinates)
+    self.pendown()
     self.screen = screen
   def show(self, message, alignment = "right", size = 18):
     self.screen.tracer(0)
@@ -15,11 +19,18 @@ class Counter(turtle.Turtle):
     self.screen.tracer(1)
   def increment(self):
     self.count += 1
-  def showcount(self, x, y):
+  def showcount(self, x =0, y=0):
     self.increment()
     self.show(self.count)
-    
-clicks_counter = Counter()
 
-counterscreen.onclick(clicks_counter.showcount)
+    
+clicks_counter = Counter(coordinates=[0,0])
+up_counter = Counter(coordinates= [0, 100])
+#down_counter = Counter()
+
+counterscreen.onclick(clicks_counter.showcount, "up")
+
+counterscreen.onkey(up_counter.showcount)
+counterscreen.listen()
+
 turtle.done()

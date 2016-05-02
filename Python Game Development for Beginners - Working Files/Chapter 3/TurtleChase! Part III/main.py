@@ -34,7 +34,8 @@ class Chaser(turtle.Turtle):
     self.pendown()
     screen.tracer(1)
     # Add Self to list of Chasers
-    chasers.append(self)
+    if self not in chasers:
+      chasers.append(self)
   def reset(self):
     self.hideturtle()
     self.clear()
@@ -59,28 +60,34 @@ johnny = Chaser(tina, [0,-100])
 # Reset the game to original state
 def reset():
   tina.reset()
-  tommy.reset()
+  for chaser in chasers:
+    chaser.reset()
+
+def chase(move=False):
+  for chaser in chasers:
+    chaser.track(move)
 
 # Define functions for each arrow key
 def go_left():
   screen.tracer(0)
   tina.left(7)
-  tommy.track()
+  chase()
+
   
 def go_right():
   screen.tracer(0)
   tina.right(7)
-  tommy.track()
+  chase()
   
 def go_forward():
   screen.tracer(0)
   tina.forward(10)
-  tommy.track(move=True)
+  chase(move=True)
   
 def go_backward():
   screen.tracer(0)
   tina.backward(10)
-  tommy.track(move=True)
+  chase(move=True)
   
 # Tell the program which functions go with which keys
 screen.onkey(go_left, 'Left')

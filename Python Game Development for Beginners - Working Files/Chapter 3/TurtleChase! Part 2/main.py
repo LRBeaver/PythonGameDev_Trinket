@@ -35,43 +35,53 @@ class Chaser(turtle.Turtle):
       self.hideturtle()
       self.clear()
       self.__init__()
+    def track(self, move=False):
+      self.seth(self.towards(self.target))
+      if intersect(self.target, self):
+        self.write("tag!")
+      elif move:
+        self.forward(9)
+      else:
+        self.forward(1)
+      checkpos([self.target, self], screen)
+      screen.tracer(1)
 
 tina = Runner()
 tommy = Chaser(tina)
 
 
 # A function so tommy can track tina
-def track(move=False):
-  tommy.seth(tommy.towards(tina))
-  if intersect(tina,tommy):
-    tommy.write("tag!")
-  elif move:
-    tommy.forward(9)
-  else:
-    tommy.forward(1)
-  checkpos([tina,tommy],screen)
-  screen.tracer(1)
+# def track(move=False):
+#   tommy.seth(tommy.towards(tina))
+#   if intersect(tina,tommy):
+#     tommy.write("tag!")
+#   elif move:
+#     tommy.forward(9)
+#   else:
+#     tommy.forward(1)
+#   checkpos([tina,tommy],screen)
+#   screen.tracer(1)
 
 # Define functions for each arrow key
 def go_left():
   screen.tracer(0)
   tina.left(7)
-  track()
+  tommy.track()
   
 def go_right():
   screen.tracer(0)
   tina.right(7)
-  track()
+  tommy.track()
   
 def go_forward():
   screen.tracer(0)
   tina.forward(10)
-  track(move=True)
+  tommy.track(move=True)
   
 def go_backward():
   screen.tracer(0)
   tina.backward(10)
-  track(move=True)
+  tommy.track(move=True)
   
 # Tell the program which functions go with which keys
 screen.onkey(go_left, 'Left')
